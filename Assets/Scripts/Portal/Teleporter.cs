@@ -1,15 +1,17 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class Teleporter : MonoBehaviour{
     public Teleporter Other;
-    private void OnTriggerStay(Collider LoggedInPortal) {
+    private void OnTriggerStay(Collider LoggedInPortal)
+    {
         //Если мы прошли портал, т.е. мы оказались "за ним" – PassedPortal < 0, хоть это и менее оптимально, но переход за то более гладкий
         if (LoggedInPortal.gameObject.tag != "Weapon") {
             float PassedPortal = transform.worldToLocalMatrix.MultiplyPoint3x4(LoggedInPortal.transform.position).z;
             if (PassedPortal < 0) Teleport(LoggedInPortal.transform);
         }
     }
+
     private void Teleport(Transform Player) {
         Vector3 LocalPositionPlayer = transform.worldToLocalMatrix.MultiplyPoint3x4(Player.position);
                 LocalPositionPlayer = new Vector3(-LocalPositionPlayer.x, LocalPositionPlayer.y, -LocalPositionPlayer.z);
